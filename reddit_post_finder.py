@@ -2,6 +2,7 @@ from praw import Reddit
 import urllib.request
 from random import randint
 from decouple import config
+from my_timer import timer
 
 # Initialization a connection to Reddit API
 reddit = Reddit(client_id=config("MY_CLIENT_ID"),
@@ -9,11 +10,12 @@ reddit = Reddit(client_id=config("MY_CLIENT_ID"),
                 user_agent="MY_USER_AGENT")
 
 # How many posts can be processed in one request 
-LIMIT = 100
+LIMIT = 50
 
 list_of_memes_subs = ['memes', 'dankmemes', 'memes_of_the_dank']
 
 # Gets a random post from chosen subreddit from hot
+@timer
 def get_random_post(sub):
     subreddit = reddit.subreddit(sub)
     posts = [post for post in subreddit.hot(limit=LIMIT)]
@@ -29,6 +31,7 @@ def get_random_post(sub):
 
 
 # Saves pic from found post
+@timer
 def save_photo(post):
     path_to_file = str(post) + ".jpg"
 

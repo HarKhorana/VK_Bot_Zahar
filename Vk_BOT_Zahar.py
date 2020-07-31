@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from os import remove, environ
 from reddit_post_finder import get_random_post, save_photo, list_of_memes_subs
 from datetime import datetime
+from my_timer import timer
 
 # API-key
 token = config('TOKEN')
@@ -107,6 +108,7 @@ def get_user_info(user_id):
 
 
 # Uploade saved pic from reddit to VK server
+@timer
 def upload_pic(user_id, path, origin):
     server = vk.method('photos.getMessagesUploadServer')
     post_request = requests.post(server['upload_url'], files={'photo': open(path, 'rb')}).json()
@@ -120,21 +122,17 @@ def upload_pic(user_id, path, origin):
 
 # Goes through the whole process of finding, uploading and sending pic to user
 def send_pic(user_id, sub):
-    start = datetime.now()
-    print('Searching for random post...')
-    post_to_send = get_random_post(sub)
-    print('Random post found', datetime.now() - start)
 
-    start = datetime.now()
+    print('Searching for random post ({})...'.format(sub))
+    post_to_send = get_random_post(sub)
+
     print('Saving pic from post...')
     path_to_pic_file = save_photo(post_to_send)
-    print('Pic saved', datetime.now() - start)
 
-    start = datetime.now()
     print('Uploading...')
     upload_pic(user_id, path_to_pic_file, post_to_send)
     remove(path_to_pic_file)
-    print('Uploaded successfully!', datetime.now() - start, '------------------------------------------------------')
+    print('==================================================================')
 
 
 def main():
