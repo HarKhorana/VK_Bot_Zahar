@@ -1,0 +1,7 @@
+# API Key for Community bot authorization
+TOKEN=
+
+# Credentials for initializing a connection to Reddit API
+MY_CLIENT_ID=
+MY_CLIENT_SECRET=
+MY_USER_AGENT=
