@@ -7,7 +7,7 @@ def timer(func):
         result = func(*args, **kwargs)
         finish = time() - start
         print('Done: {} sec'.format(round(finish, 3)))
-        # print(round(finish, 3))
+        print('==================================================================')
         return result
 
     return wrapper

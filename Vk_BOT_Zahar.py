@@ -19,7 +19,7 @@ vk = VkApi(token=token)
 # Creates a connection with VK LongPoll server
 longpoll = VkLongPoll(vk)
 
-
+@timer
 def corona_world_stats():
     url = 'https://www.worldometers.info/coronavirus/?'
     webpage = requests.get(url)
@@ -42,7 +42,7 @@ def corona_world_stats():
     
     return results
 
-
+@timer
 def corona_moscow_stats():
     url = 'https://coronavirus-control.ru/coronavirus-moscow/'
     webpage = requests.get(url)
@@ -132,7 +132,6 @@ def send_pic(user_id, sub):
     print('Uploading...')
     upload_pic(user_id, path_to_pic_file, post_to_send)
     remove(path_to_pic_file)
-    print('==================================================================')
 
 
 def main():
@@ -155,10 +154,12 @@ def main():
                     write_msg_with_keyboard(event.user_id, 'Выбери статистику...', keyboard_corona_stats)
 
                 elif request == "статистика по миру":
+                    print('Loading Global stats...')
                     write_msg_without_keyboard(event.user_id, "Загружаю статистику по миру...", keyboard_main)
                     write_msg_with_keyboard(event.user_id, corona_world_stats(), keyboard_main)
 
                 elif request == "статистика по москве":
+                    print('Loading Moscow stats...')
                     write_msg_without_keyboard(event.user_id, "Загружаю статистику по Москве...", keyboard_main)
                     write_msg_with_keyboard(event.user_id, corona_moscow_stats(), keyboard_main)
 
