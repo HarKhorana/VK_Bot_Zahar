@@ -1,5 +1,6 @@
 from time import time
 
+# Writes execution time in loggs
 def timer(func):
 
     def wrapper(*args, **kwargs):
@@ -7,7 +8,6 @@ def timer(func):
         result = func(*args, **kwargs)
         finish = time() - start
         print('Done: {} sec'.format(round(finish, 3)))
-        print('==================================================================')
         return result
 
     return wrapper

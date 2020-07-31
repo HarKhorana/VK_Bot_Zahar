@@ -123,15 +123,16 @@ def upload_pic(user_id, path, origin):
 # Goes through the whole process of finding, uploading and sending pic to user
 def send_pic(user_id, sub):
 
-    print('Searching for random post ({})...'.format(sub))
+    print('Searching for random post ({})...'.format(sub)) # For loggs
     post_to_send = get_random_post(sub)
 
-    print('Saving pic from post...')
+    print('Saving pic from post...') # For loggs
     path_to_pic_file = save_photo(post_to_send)
 
-    print('Uploading...')
+    print('Uploading...') # For loggs
     upload_pic(user_id, path_to_pic_file, post_to_send)
     remove(path_to_pic_file)
+    print('==================================================================') # For loggs
 
 
 def main():
@@ -154,14 +155,16 @@ def main():
                     write_msg_with_keyboard(event.user_id, 'Выбери статистику...', keyboard_corona_stats)
 
                 elif request == "статистика по миру":
-                    print('Loading Global stats...')
+                    print('Loading Global stats...') # For loggs
                     write_msg_without_keyboard(event.user_id, "Загружаю статистику по миру...", keyboard_main)
                     write_msg_with_keyboard(event.user_id, corona_world_stats(), keyboard_main)
+                    print('==================================================================') # For loggs
 
                 elif request == "статистика по москве":
-                    print('Loading Moscow stats...')
+                    print('Loading Moscow stats...') # For loggs
                     write_msg_without_keyboard(event.user_id, "Загружаю статистику по Москве...", keyboard_main)
                     write_msg_with_keyboard(event.user_id, corona_moscow_stats(), keyboard_main)
+                    print('==================================================================') # For loggs
 
                 elif request == "начать":
                     write_msg_with_keyboard(event.user_id, "Привет! Выбери одну из категорий", keyboard_main)
