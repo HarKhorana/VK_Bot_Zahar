@@ -1,1 +1,0 @@
-worker: python3 Vk_BOT_Zahar.py 
